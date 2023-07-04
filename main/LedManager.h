@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Color.h"
 #include <stdint.h>
 
 namespace DaBomb::Core {
@@ -10,7 +11,7 @@ public:
 
   void init();
 
-  void setColor(uint8_t r, uint8_t g, uint8_t b);
+  void setColor(Color color);
 private:
   const uint8_t RedPin = 9;
   const uint8_t GreenPin = 10;

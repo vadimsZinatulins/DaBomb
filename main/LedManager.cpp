@@ -18,12 +18,10 @@ void LedManager::init() {
   pinMode(BluePin, OUTPUT);
 }
 
-void LedManager::setColor(uint8_t r, uint8_t g, uint8_t b) {
-  Serial.println("Changing color");
-
-  analogWrite(RedPin, 255 - r);
-  analogWrite(GreenPin, 255 - g);
-  analogWrite(BluePin, 255 - b);
+void LedManager::setColor(Color color) {
+  analogWrite(RedPin, 255 - color.red);
+  analogWrite(GreenPin, 255 - color.green);
+  analogWrite(BluePin, 255 - color.blue);
 }
 
 }
