@@ -1,3 +1,4 @@
+#include "HardwareSerial.h"
 #include "StateManager.h"
 
 namespace DaBomb::Core {
@@ -9,11 +10,11 @@ StateManager &StateManager::getInstance() {
 }
 
 IState *StateManager::getState() {
-  return m_State;
+  return m_state;
 }
 
 void StateManager::changeState(IState *newState) {
-  if(m_nextState) {
+  if(m_nextState != nullptr) {
     delete m_nextState;
   }
 
@@ -21,12 +22,14 @@ void StateManager::changeState(IState *newState) {
 }
 
 void StateManager::update() {
-  if(m_nextState) {
-    delete m_State;
+  if(m_nextState != nullptr) {
+    delete m_state;
     
-    m_State = m_nextState;
+    m_state = m_nextState;
 
     m_nextState = nullptr;
+
+    m_state->initialize();
   }
 }
 

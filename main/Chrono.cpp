@@ -17,6 +17,11 @@ void Chrono::stop() {
   }
 }
 
+void Chrono::restart() {
+  m_initial = m_final = millis();
+  m_isRunning = true;
+}
+
 
 bool Chrono::isRunning() {
   return m_isRunning;

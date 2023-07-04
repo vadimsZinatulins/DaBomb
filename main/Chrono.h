@@ -6,7 +6,8 @@ class Chrono {
 public:
   void start();
   void stop();
-
+  void restart();
+  
   bool isRunning();
   long getMillis();
 private:

@@ -1,6 +1,5 @@
-#include "HardwareSerial.h"
-#include "Arduino.h"
 #include "LedManager.h"
+#include "Arduino.h"
 
 namespace DaBomb::Core {
 
@@ -11,8 +10,6 @@ LedManager &LedManager::getInstance() {
 } 
 
 void LedManager::init() {
-  Serial.println("Setting up leds");
-
   pinMode(RedPin, OUTPUT);
   pinMode(GreenPin, OUTPUT);
   pinMode(BluePin, OUTPUT);

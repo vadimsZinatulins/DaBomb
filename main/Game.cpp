@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "SetupState.h"
+#include "TransitionState.h"
 #include "StateManager.h"
 #include "PinsManager.h"
 #include "LedManager.h"
@@ -14,11 +15,12 @@ void Game::init() {
   Core::PinsManager::getInstance().init();
   Core::LedManager::getInstance().init();
 
-  Core::StateManager::getInstance().changeState(new Core::SetupState());
+  Core::StateManager::getInstance().changeState(new Core::TransitionState(new Core::SetupState(), 1500));
 }
 
 void Game::run() {
-  auto stateManager { Core::StateManager::getInstance() };
+  auto &stateManager { Core::StateManager::getInstance() };
+  
   stateManager.update();
   stateManager.getState()->update();
 };

@@ -4,6 +4,7 @@
 #include "LedManager.h"
 #include "PinsManager.h"
 #include "StateManager.h"
+#include "TransitionState.h"
 #include "FirstPhaseState.h"
 #include "Color.h"
 
@@ -18,13 +19,15 @@ inline bool checkIfConnected(Connection connection) {
 }
 
 inline void displayPins(Connection connection, DisplayPin state) {
-  auto manager { LCDManager::getInstance() };
+  auto &manager { LCDManager::getInstance() };
 
   manager.displayPinAt(connection.outputPin, 0, state);
   manager.displayPinAt(connection.inputPin, 1, state);
 }
 
-SetupState::SetupState() {
+void SetupState::initialize() {
+  LCDManager::getInstance().displayAll();
+
   auto initNum = Globals::NumPinsToInitialize;
 
   // This lambda initializes an array with random indices without repeating them
@@ -97,7 +100,7 @@ void SetupState::update() {
 
       // If all pins where initialized then change to the next state
       if(m_initIndex >= Globals::NumPinsToInitialize) {
-        StateManager::getInstance().changeState(new FirstPhaseState());
+        StateManager::getInstance().changeState(new TransitionState(new FirstPhaseState(), 1500));
       }
     }
   } else {

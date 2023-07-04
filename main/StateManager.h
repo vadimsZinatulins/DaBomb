@@ -3,6 +3,7 @@
 namespace DaBomb::Core {
 
 struct IState {
+  virtual void initialize() = 0;
   virtual void update() = 0;
 };
 
@@ -15,7 +16,7 @@ public:
 
   void update();
 private:
-  IState *m_State { nullptr };
+  IState *m_state { nullptr };
   IState *m_nextState { nullptr };
 };
 

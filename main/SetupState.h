@@ -8,13 +8,13 @@
 
 namespace DaBomb::Core {
 
-class SetupState : public Core::IState {
+class SetupState : public IState {
 public:
-  SetupState();
+  void initialize() override;
   void update() override;
 private:
   void validatePreviousConnections();
-  
+
   uint8_t m_initIndex { 0 };
   Connection m_connectionsToSetup[Globals::NumPinsToInitialize];
 
