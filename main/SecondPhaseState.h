@@ -16,6 +16,6 @@ public:
   void update() override;
 private:
     uint8_t code[CODE_LENGTH];
-}
+};
 
 }
