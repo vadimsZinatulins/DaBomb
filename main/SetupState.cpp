@@ -86,7 +86,7 @@ void SetupState::update() {
   if(checkIfConnected(connection)) {
     if(!m_chrono.isRunning()) {
       m_chrono.start();
-    } else if(m_chrono.getMillis() > 5000) {
+    } else if(m_chrono.getMillis() > 1000) {
       // Stop the timer since its internal state is being used
       m_chrono.stop();
 
@@ -100,7 +100,7 @@ void SetupState::update() {
 
       // If all pins where initialized then change to the next state
       if(m_initIndex >= Globals::NumPinsToInitialize) {
-        StateManager::getInstance().changeState(new TransitionState(new FirstPhaseState(), 1500));
+        StateManager::getInstance().changeState(new TransitionState(new FirstPhaseState(m_connectionsToSetup), 1500));
       }
     }
   } else {
