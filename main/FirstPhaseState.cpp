@@ -11,12 +11,22 @@
 
 namespace DaBomb::Core {
 
-uint8_t maxValue(uint8_t a, uint8_t b) {
-  return a > b ? a : b;
+inline uint8_t minValue(uint8_t a, uint8_t b) {
+  return a < b ? a : b;
 }
 
 inline bool checkIfConnected(Connection connection) {
   return PinsManager::getInstance().checkIfConnected(connection.inputPin, connection.outputPin);
+}
+
+void printCurrentChanges(Changes changes[Globals::NumPinsToInitialize]) {
+  String changesStr = "Changes:";
+
+  for(uint8_t i = 0; i < Globals::NumPinsToInitialize; ++i) {
+    changesStr += " " + String(changes[i].numTotalChangesRemain);
+  }
+
+  Serial.println(changesStr);
 }
 
 FirstPhaseState::FirstPhaseState(Connection connections[Globals::NumPinsToInitialize]) {
@@ -33,13 +43,15 @@ void FirstPhaseState::initialize() {
 
   uint8_t index { 0 };
   while(maxPool > 0) {
-    int value = random(1, maxValue(maxPool, 5));
+    int value = random(1, minValue(maxPool, 5));
     maxPool -= value;
 
     m_changes[index].numTotalChanges += value;
     m_changes[index].numTotalChangesRemain = m_changes[index].numTotalChanges;
 
     index = (index + 1) % Globals::NumPinsToInitialize;
+    
+    Serial.println("Pool(" + String(maxPool) + ") value(" + String(value) + ") total(" + String(m_changes[index].numTotalChanges) + ")");
   }
 
   pickRandomIndex();
@@ -107,6 +119,8 @@ void FirstPhaseState::pickRandomIndex() {
   }
 
   LedManager::getInstance().setColor(m_connections[m_currentChangeIndex].color);
+
+  printCurrentChanges(m_changes);
 }
 
 void FirstPhaseState::pickOutputPin() {
