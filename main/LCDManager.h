@@ -14,7 +14,12 @@ public:
   void init();
   void displayAll();
   void displayPinAt(uint8_t column, uint8_t row, DisplayPin pinState);
-private:
+  void clearScreen();
+  void moveCursor(uint8_t column, uint8_t row);
+  void print(char c);
+  void print(char str[]);
+  
+// private:
   LiquidCrystal_I2C m_lcd { 0x27, 20, 4 };
 };
 

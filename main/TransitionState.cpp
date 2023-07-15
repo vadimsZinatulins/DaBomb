@@ -15,7 +15,10 @@ void renderCurrentSection(uint8_t currentIndex) {
 TransitionState::TransitionState(IState *nextState, long timeToTransition) : m_nextState(nextState),  m_timePerSection(timeToTransition / Globals::NumPinsPerRow) { }
 
 void TransitionState::initialize() {
-  LCDManager::getInstance().displayAll();
+  auto &manager { LCDManager::getInstance() };
+
+  manager.clearScreen();
+  manager.displayAll();
 
   LedManager::getInstance().setColor(Color { 0, 0, 0});
 

@@ -3,6 +3,7 @@
 #include "StateManager.h"
 #include "Globals.h"
 #include "Color.h"
+#include "Chrono.h"
 
 namespace DaBomb::Core {
     
@@ -21,6 +22,10 @@ public:
   void update() override;
 private:
     CodeElement m_code[CODE_LENGTH];
+    
+    Chrono m_remainingTime;
+
+    uint8_t m_currentIndex { 0 };
 };
 
 }

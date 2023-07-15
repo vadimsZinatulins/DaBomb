@@ -63,4 +63,20 @@ void LCDManager::displayPinAt(uint8_t column, uint8_t row, DisplayPin pinState) 
   m_lcd.write(static_cast<uint8_t>(pinState));
 }
 
+void LCDManager::clearScreen() {
+  m_lcd.clear();
+}
+
+void LCDManager::moveCursor(uint8_t column, uint8_t row) {
+  m_lcd.setCursor(column, row);
+}
+
+void LCDManager::print(char c) {
+  m_lcd.write(c);
+}
+
+void LCDManager::print(char str[]) {
+  m_lcd.printstr(str);
+}
+
 }
