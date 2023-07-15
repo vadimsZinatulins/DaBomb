@@ -19,8 +19,9 @@ void Game::init() {
   Core::PinsManager::getInstance().init();
   Core::LedManager::getInstance().init();
 
-  // Core::StateManager::getInstance().changeState(new Core::TransitionState(new Core::SetupState(), 1500));
+  Core::StateManager::getInstance().changeState(new Core::TransitionState(new Core::SetupState(), 1500));
 
+  /*
   uint8_t changes[Globals::NumPinsToInitialize];
   for(uint8_t i = 0; i < Globals::NumPinsToInitialize; ++i) {
     changes[i] = random(0, 10);
@@ -34,6 +35,7 @@ void Game::init() {
   };
 
   Core::StateManager::getInstance().changeState(new Core::TransitionState(new Core::SecondPhaseState(changes, colors), 1500));
+  */
 }
 
 void Game::run() {

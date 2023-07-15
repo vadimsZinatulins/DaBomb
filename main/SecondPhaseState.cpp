@@ -1,5 +1,6 @@
 #include "SecondPhaseState.h"
 #include "LCDManager.h"
+#include "LedManager.h"
 #include "KeypadManager.h"
 #include "DefusedState.h"
 #include "TransitionState.h"
@@ -12,8 +13,8 @@ SecondPhaseState::SecondPhaseState(uint8_t changes[Globals::NumPinsToInitialize]
         uint8_t index = random(0, Globals::NumPinsToInitialize);
 
         m_code[i] = {
-            String(changes[i])[0],
-            colors[i]
+            String(changes[index])[0],
+            colors[index]
         };
     }
 }
@@ -33,6 +34,8 @@ void SecondPhaseState::initialize() {
     Serial.println(code);
 
     lcd.moveCursor(0, 0);
+
+    LedManager::getInstance().setColor(m_code[0].color);
 }
 
 void SecondPhaseState::update() {
@@ -47,6 +50,8 @@ void SecondPhaseState::update() {
 
         if(m_currentIndex >= CODE_LENGTH) {
             StateManager::getInstance().changeState(new TransitionState(new DefusedState(), 1500));
+        } else {
+            LedManager::getInstance().setColor(m_code[m_currentIndex].color);
         }
     }
 }
